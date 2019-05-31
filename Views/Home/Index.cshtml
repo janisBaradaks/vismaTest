@@ -1,0 +1,41 @@
+﻿@model IEnumerable<visma_test.Models.UserModel>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Employees</h1>
+</div>
+<p>
+    This area should contain a list of employees. Initially, the user should see only name and surname of the employees.
+    After clicking on the row, the user should see employee's phone number, login and timestamps of last ten log in attempts.
+</p>
+<p>Data should be requested from back-end (mocked data is OK).</p>
+
+<table class="table table-condensed table-bordered" style="border-collapse: collapse;">
+    <thead class="thead-light">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.userName)</th>
+            <th>@Html.DisplayNameFor(model => model.userSurname)</th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr data-toggle="collapse" data-target=".@item.userId" class="table-success">
+            <td>@Html.DisplayFor(modelItem => item.userName)</td>
+            <td>@Html.DisplayFor(modelItem => item.userSurname)</td>
+        </tr>
+        @foreach (var item2 in item.UserDetailsModel)
+        {
+            <tr class="collapse @item.userId">
+                <td>@Html.DisplayFor(modelItem => item2.phoneNumber)</td>
+                <td>@Html.DisplayFor(modelItem => item2.login)</td>
+                <td>@Html.DisplayFor(modelItem => item2.timestamp)</td>
+            </tr>
+
+
+        }
+
+    }
+</table>
